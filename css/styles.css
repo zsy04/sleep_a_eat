@@ -1143,6 +1143,34 @@ a:hover { color: var(--red); }
   display: block;
 }
 
+/* Mermaid 图 */
+.article-body .mermaid {
+  margin: 26px 0;
+  padding: 20px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-align: center;
+  overflow-x: auto;
+}
+
+.article-body .mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.article-body .mermaid-fallback {
+  margin: 26px 0;
+  padding: 20px;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-mid);
+  white-space: pre-wrap;
+}
+
 .article-body em {
   display: block;
   text-align: center;

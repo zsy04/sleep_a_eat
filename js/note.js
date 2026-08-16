@@ -115,6 +115,9 @@
 
     articleBody.innerHTML = post.html;
 
+    // 渲染 Mermaid 图（若有 mermaid 代码块）
+    renderMermaid();
+
     // 根据类型显示对应返回按钮
     const backEssays = document.getElementById("backEssays");
     if (post.type === "essay" && backEssays) {
@@ -123,6 +126,35 @@
 
     // 生成目录（TOC）
     buildToc();
+  }
+
+  /* ============================================================
+     Mermaid 图渲染
+     ============================================================ */
+  function renderMermaid() {
+    const blocks = articleBody.querySelectorAll("pre.mermaid");
+    if (!blocks.length) return;
+    if (typeof window.mermaid === "undefined") {
+      // 兜底：mermaid.js 未加载时显示代码
+      blocks.forEach((b) => {
+        b.className = "mermaid-fallback";
+      });
+      return;
+    }
+    // 主题跟随站点
+    const theme = document.documentElement.getAttribute("data-theme") === "light" ? "neutral" : "dark";
+    window.mermaid.initialize({ startOnLoad: false, theme, securityLevel: "loose" });
+    blocks.forEach((b, i) => {
+      const id = "mermaid-" + i + "-" + Date.now();
+      const src = b.textContent;
+      try {
+        window.mermaid.render(id, src).then(({ svg }) => {
+          b.outerHTML = svg;
+        });
+      } catch (e) {
+        console.warn("mermaid 渲染失败:", e);
+      }
+    });
   }
 
   /* ============================================================
@@ -232,4 +264,24 @@
       article.style.transform = "translateY(0)";
     });
   }
+
+  /* ============================================================
+     主题切换时重绘 Mermaid（暗/亮配色不同）
+     ============================================================ */
+  document.addEventListener("themechange", () => {
+    const blocks = articleBody.querySelectorAll("pre.mermaid");
+    if (!blocks.length || typeof window.mermaid === "undefined") return;
+    const theme = document.documentElement.getAttribute("data-theme") === "light" ? "neutral" : "dark";
+    window.mermaid.initialize({ startOnLoad: false, theme, securityLevel: "loose" });
+    blocks.forEach((b, i) => {
+      const src = b.textContent;
+      const id = "mermaid-" + i + "-" + Date.now();
+      window.mermaid
+        .render(id, src)
+        .then(({ svg }) => {
+          b.outerHTML = svg;
+        })
+        .catch((e) => console.warn("mermaid 重绘失败:", e));
+    });
+  });
 })();

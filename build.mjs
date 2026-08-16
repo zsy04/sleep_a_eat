@@ -39,17 +39,38 @@ const IMG_OUT_DIR = join(__dirname, "assets", "images");
 const TYPE_MAP = { notes: "note", essays: "essay" };
 
 // ---------- Markdown 渲染配置 ----------
-marked.use(
-  markedHighlight({
-    langPrefix: "hljs language-",
-    highlight(code, lang) {
-      if (lang && hljs.getLanguage(lang)) {
-        return hljs.highlight(code, { language: lang, ignoreIllegals: true }).value;
+marked.use({
+  renderer: {
+    code(code, lang) {
+      // Mermaid 图：交给前端 mermaid.js 渲染（note.html 引入）
+      if (lang && lang.toLowerCase() === "mermaid") {
+        return '<pre class="mermaid">' + escapeHtml(code) + "</pre>\n";
       }
-      return hljs.highlightAuto(code).value;
+      // 其他语言：highlight.js 高亮
+      const validLang = lang && hljs.getLanguage(lang);
+      const highlighted = validLang
+        ? hljs.highlight(code, { language: lang, ignoreIllegals: true }).value
+        : hljs.highlightAuto(code).value;
+      return (
+        '<pre><code class="hljs language-' +
+        (validLang ? lang : "") +
+        '">' +
+        highlighted +
+        "</code></pre>\n"
+      );
     },
-  })
-);
+  },
+});
+
+function escapeHtml(s) {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 marked.setOptions({ gfm: true, breaks: true });
 
 // ---------- frontmatter 解析 ----------
