@@ -1,0 +1,43 @@
+<svg viewBox="0 0 680 520" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#8b8b8b"/>
+    </marker>
+  </defs>
+
+  <text x="24" y="34" font-size="20" font-weight="700" fill="#1a1a1a">guard：两个"工具保障"插件，挂在 tools 流水线上</text>
+  <text x="24" y="56" font-size="13" fill="#666">超时、防重复都不是写死在核心，而是独立插件</text>
+
+  <text x="24" y="90" font-size="13" font-weight="700" fill="#1a1a1a">工具三段式流水线</text>
+  <rect x="24" y="100" width="180" height="48" rx="8" fill="#e3f0ff" stroke="#4a7cf0"/>
+  <text x="114" y="128" font-size="12" font-weight="700" fill="#2f5fd0" text-anchor="middle">tools/pre-execute</text>
+
+  <rect x="250" y="100" width="180" height="48" rx="8" fill="#e3f0ff" stroke="#4a7cf0"/>
+  <text x="340" y="128" font-size="12" font-weight="700" fill="#2f5fd0" text-anchor="middle">tools/execute</text>
+
+  <rect x="476" y="100" width="180" height="48" rx="8" fill="#e3f0ff" stroke="#4a7cf0"/>
+  <text x="566" y="128" font-size="12" font-weight="700" fill="#2f5fd0" text-anchor="middle">tools/post-execute</text>
+
+  <path d="M 204 124 L 242 124" stroke="#888" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <path d="M 430 124 L 468 124" stroke="#888" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+
+  <path d="M 340 148 L 340 176" stroke="#e0a030" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <rect x="200" y="180" width="280" height="120" rx="10" fill="#fff7e6" stroke="#e0a030" stroke-width="2"/>
+  <text x="216" y="202" font-size="13" font-weight="700" fill="#b07900">timeout-policy（挂 tools/execute）</text>
+  <text x="216" y="222" font-size="11" fill="#555">工具声明 timeoutMs → 造"截止信号"→ 临时替换 exec.signal</text>
+  <text x="216" y="240" font-size="11" fill="#555">协作式：给信号不杀死，工具自己检测后安静退出</text>
+  <text x="216" y="258" font-size="11" fill="#555">超时了 → 替换成 TOOL_TIMEOUT 错误</text>
+  <text x="216" y="276" font-size="11" fill="#555">finally 恢复原信号，不污染 post-execute</text>
+
+  <path d="M 566 148 L 566 176" stroke="#38a83c" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <rect x="200" y="320" width="280" height="136" rx="10" fill="#eaffea" stroke="#38a83c" stroke-width="2"/>
+  <text x="216" y="342" font-size="13" font-weight="700" fill="#1f7a22">repeat-tool-reminder（挂 tools/post-execute）</text>
+  <text x="216" y="362" font-size="11" fill="#555">记录"连续重复调用链"：key=工具名+规范化参数</text>
+  <text x="216" y="380" font-size="11" fill="#555">参数深 key 排序 → {a,b} 和 {b,a} 算同一次</text>
+  <text x="216" y="398" font-size="11" fill="#555">命中阈值 [3,5,8] → 注入提醒（温和→详细）</text>
+  <text x="216" y="416" font-size="11" fill="#555">观察不否决：只塞提醒，让模型自己改</text>
+  <text x="216" y="434" font-size="11" fill="#555">用户插话（user 消息）→ 重置链</text>
+
+  <rect x="24" y="472" width="632" height="40" rx="8" fill="#f6f6f6" stroke="#4a7cf0" stroke-width="1.5"/>
+  <text x="40" y="496" font-size="12" font-weight="700" fill="#2f5fd0">和 subagent 保障、沙箱审批一样：保障机制也是可插拔插件，挂在 waterfall 上</text>
+</svg>

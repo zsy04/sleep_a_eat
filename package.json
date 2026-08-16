@@ -1,0 +1,15 @@
+{
+  "name": "zs-blog",
+  "version": "1.0.0",
+  "description": "嵩原的个人技术博客 - 暗色科技感静态站",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "serve": "node serve.mjs"
+  },
+  "dependencies": {
+    "highlight.js": "^11.9.0",
+    "marked": "^12.0.0",
+    "marked-highlight": "^2.2.4"
+  }
+}

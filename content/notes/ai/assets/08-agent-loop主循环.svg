@@ -1,0 +1,42 @@
+<svg viewBox="0 0 680 536" width="100%" xmlns="http://www.w3.org/2000/svg">
+<title>agent-loop 主循环调用链</title>
+<desc>kick 循环 turn，turn 内循环 step；step 里 buildRequest 后调 llm.stream 收流，有工具调用则 executeToolCalls；结束走 agent/turn-stopping 并记 turn/end。</desc>
+<defs>
+<marker id="arrowl" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+<text x="40" y="42" font-family="system-ui, sans-serif" font-size="15" font-weight="500" fill="#2C2C2A">agent-loop 主循环（真实调用链）</text>
+<g>
+<rect x="180" y="56" width="320" height="44" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="340" y="78" font-family="Consolas, monospace" font-size="12" font-weight="500" fill="#0C447C" text-anchor="middle" dominant-baseline="central">kick() → while (await this.turn())</text>
+</g>
+<path d="M340 100 L340 124" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowl)"/>
+<g>
+<rect x="180" y="126" width="320" height="44" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="340" y="148" font-family="Consolas, monospace" font-size="12" font-weight="500" fill="#0C447C" text-anchor="middle" dominant-baseline="central">turn() → append('turn/start')</text>
+</g>
+<path d="M340 170 L340 194" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowl)"/>
+<g>
+<rect x="180" y="196" width="320" height="44" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="340" y="218" font-family="Consolas, monospace" font-size="12" font-weight="500" fill="#0C447C" text-anchor="middle" dominant-baseline="central">preStep() → agent/pre-step 瀑布</text>
+</g>
+<path d="M340 240 L340 264" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowl)"/>
+<g>
+<rect x="60" y="266" width="560" height="180" rx="12" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="76" y="284" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#2C2C2A" dominant-baseline="central">step() —— 一个步骤（核心）</text>
+<rect x="80" y="294" width="520" height="40" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="340" y="314" font-family="Consolas, monospace" font-size="12" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">buildRequest() → llm.stream(request)</text>
+<rect x="80" y="340" width="520" height="40" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="340" y="360" font-family="Consolas, monospace" font-size="12" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">assistant/chunk ×N → assistant/message</text>
+<rect x="80" y="386" width="520" height="40" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="340" y="406" font-family="Consolas, monospace" font-size="12" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">executeToolCalls() → tool/result</text>
+</g>
+<path d="M340 446 L340 470" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowl)"/>
+<g>
+<rect x="180" y="472" width="320" height="44" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="340" y="494" font-family="Consolas, monospace" font-size="12" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">agent/turn-stopping + append('turn/end')</text>
+</g>
+<path d="M512 494 C600 494, 600 78, 512 78" fill="none" stroke="#0F6E56" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrowl)"/>
+<text x="606" y="286" font-family="system-ui, sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle">还有输入 → 下一 turn</text>
+</svg>

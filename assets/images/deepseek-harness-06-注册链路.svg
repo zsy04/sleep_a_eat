@@ -1,0 +1,62 @@
+<svg viewBox="0 0 680 510" width="100%" xmlns="http://www.w3.org/2000/svg">
+<title>注册链路：effect 是唯一变更原语</title>
+<desc>ctx.provide/on/set/accessor 四个注册入口都归结到 fiber.effect；effect 执行注册进 store 并收集逆函数；卸载时逆序回滚并 notify 依赖者。</desc>
+<defs>
+<marker id="arrowe" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+<text x="40" y="42" font-family="system-ui, sans-serif" font-size="15" font-weight="500" fill="#2C2C2A">注册链路：effect 是唯一变更原语</text>
+<g>
+<rect x="40" y="58" width="136" height="48" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="108" y="78" font-family="Consolas, monospace" font-size="12" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">ctx.provide</text>
+<text x="108" y="96" font-family="system-ui, sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle" dominant-baseline="central">提供服务</text>
+</g>
+<g>
+<rect x="192" y="58" width="136" height="48" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="260" y="78" font-family="Consolas, monospace" font-size="12" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">ctx.on</text>
+<text x="260" y="96" font-family="system-ui, sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle" dominant-baseline="central">挂事件</text>
+</g>
+<g>
+<rect x="344" y="58" width="136" height="48" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="412" y="78" font-family="Consolas, monospace" font-size="12" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">ctx.set</text>
+<text x="412" y="96" font-family="system-ui, sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle" dominant-baseline="central">注册服务</text>
+</g>
+<g>
+<rect x="496" y="58" width="136" height="48" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="564" y="78" font-family="Consolas, monospace" font-size="12" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">ctx.accessor</text>
+<text x="564" y="96" font-family="system-ui, sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle" dominant-baseline="central">计算属性</text>
+</g>
+<path d="M108 106 L340 138" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowe)"/>
+<path d="M260 106 L340 138" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowe)"/>
+<path d="M412 106 L340 138" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowe)"/>
+<path d="M564 106 L340 138" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowe)"/>
+<g>
+<rect x="180" y="140" width="320" height="56" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="340" y="162" font-family="Consolas, monospace" font-size="13" font-weight="500" fill="#0C447C" text-anchor="middle" dominant-baseline="central">fiber.effect(execute)</text>
+<text x="340" y="182" font-family="system-ui, sans-serif" font-size="12" fill="#185FA5" text-anchor="middle" dominant-baseline="central">唯一变更原语</text>
+</g>
+<path d="M340 196 L340 220" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowe)"/>
+<g>
+<rect x="60" y="222" width="560" height="104" rx="12" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="76" y="240" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#2C2C2A" dominant-baseline="central">execute() 执行时做两件事</text>
+<rect x="76" y="252" width="260" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="206" y="274" font-family="Consolas, monospace" font-size="12" font-weight="500" fill="#0C447C" text-anchor="middle" dominant-baseline="central">store[key] = impl</text>
+<text x="206" y="294" font-family="system-ui, sans-serif" font-size="11" fill="#185FA5" text-anchor="middle" dominant-baseline="central">注册进 store（注册中心）</text>
+<rect x="344" y="252" width="260" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="474" y="274" font-family="Consolas, monospace" font-size="12" font-weight="500" fill="#0C447C" text-anchor="middle" dominant-baseline="central">collect(disposer)</text>
+<text x="474" y="294" font-family="system-ui, sans-serif" font-size="11" fill="#185FA5" text-anchor="middle" dominant-baseline="central">收集逆函数</text>
+</g>
+<path d="M340 326 L340 350" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowe)"/>
+<g>
+<rect x="180" y="352" width="320" height="56" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="340" y="374" font-family="Consolas, monospace" font-size="13" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">dispose()</text>
+<text x="340" y="394" font-family="system-ui, sans-serif" font-size="12" fill="#0F6E56" text-anchor="middle" dominant-baseline="central">disposables.reverse() → 逆序回滚</text>
+</g>
+<path d="M340 408 L340 432" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowe)"/>
+<g>
+<rect x="180" y="434" width="320" height="56" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="340" y="456" font-family="Consolas, monospace" font-size="12" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">delete store[key] → notify([name])</text>
+<text x="340" y="476" font-family="system-ui, sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle" dominant-baseline="central">依赖者 refresh → 激活 / 停用</text>
+</g>
+</svg>

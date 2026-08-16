@@ -1,0 +1,50 @@
+<svg viewBox="0 0 680 540" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#8b8b8b"/>
+    </marker>
+  </defs>
+
+  <text x="24" y="34" font-size="20" font-weight="700" fill="#1a1a1a">system-prompt 组装：多个 section 按 order 拼成最终提示词</text>
+  <text x="24" y="56" font-size="13" fill="#666">没有一段是写死的——插件各注册一个带 order 的 section，动态拼装</text>
+
+  <text x="24" y="92" font-size="13" font-weight="700" fill="#1a1a1a">插件们各自注册的 section（带 order）</text>
+
+  <rect x="24" y="102" width="200" height="52" rx="8" fill="#e3f0ff" stroke="#4a7cf0"/>
+  <text x="36" y="122" font-size="12" font-weight="700" fill="#2f5fd0">harness:identity</text>
+  <text x="36" y="140" font-size="11" fill="#555">order: -100（框架身份）</text>
+
+  <rect x="240" y="102" width="200" height="52" rx="8" fill="#ffe9e9" stroke="#d04a4a"/>
+  <text x="252" y="122" font-size="12" font-weight="700" fill="#b02a2a">deployment:persona</text>
+  <text x="252" y="140" font-size="11" fill="#555">order: 0（人设）</text>
+
+  <rect x="456" y="102" width="200" height="52" rx="8" fill="#fff7e6" stroke="#e0a030"/>
+  <text x="468" y="122" font-size="12" font-weight="700" fill="#b07900">tool-guidance</text>
+  <text x="468" y="140" font-size="11" fill="#555">order: 100~199（工具指导）</text>
+
+  <path d="M 340 168 L 340 192" stroke="#888" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="352" y="184" font-size="11" fill="#666">按 order 升序排序</text>
+
+  <rect x="24" y="200" width="632" height="120" rx="10" fill="#f6f6f6" stroke="#ddd"/>
+  <text x="40" y="224" font-size="12" font-weight="700" fill="#333">拼装后的 system prompt（按 order 从上到下）</text>
+  <rect x="40" y="236" width="600" height="24" rx="4" fill="#e3f0ff"/>
+  <text x="50" y="253" font-size="11" fill="#2f5fd0">[order -100] You are an AI agent powered by DeepSeek Harness.</text>
+  <rect x="40" y="262" width="600" height="24" rx="4" fill="#ffe9e9"/>
+  <text x="50" y="279" font-size="11" fill="#b02a2a">[order 0] {{persona}}（人设，可被 scoped section 覆盖）</text>
+  <rect x="40" y="288" width="600" height="24" rx="4" fill="#fff7e6"/>
+  <text x="50" y="305" font-size="11" fill="#b07900">[order 100+] 工具使用指导…</text>
+
+  <path d="M 340 334 L 340 358" stroke="#888" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="352" y="350" font-size="11" fill="#666">waterfall：system-prompt/assemble</text>
+
+  <rect x="24" y="366" width="632" height="56" rx="10" fill="#eaffea" stroke="#38a83c" stroke-width="1.5"/>
+  <text x="40" y="388" font-size="12" font-weight="700" fill="#1f7a22">waterfall 改写：其他插件可改 section / tools / variables</text>
+  <text x="40" y="408" font-size="11" fill="#555">约束：complete section 事后恢复，插件不能替换该 scope 的核心提示词</text>
+
+  <path d="M 340 436 L 340 460" stroke="#888" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="352" y="452" font-size="11" fill="#666">renderPrompt：{{变量}} 插值 + 去空段 + 连接</text>
+
+  <rect x="24" y="468" width="632" height="48" rx="10" fill="#f6f6f6" stroke="#4a7cf0" stroke-width="2"/>
+  <text x="40" y="490" font-size="12" font-weight="700" fill="#2f5fd0">最终 system prompt → 发给模型</text>
+  <text x="40" y="506" font-size="11" fill="#555">这就是"模型到底看到什么"的最终答案</text>
+</svg>

@@ -1,0 +1,59 @@
+<svg viewBox="0 0 680 540" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#8b8b8b"/>
+    </marker>
+  </defs>
+
+  <text x="24" y="34" font-size="20" font-weight="700" fill="#1a1a1a">响应式共效应（空间维度）：依赖注册 → 激活/停用</text>
+  <text x="24" y="56" font-size="13" fill="#666">组件声明依赖 d；ctx 按 key 注册值；notify 判定依赖是否齐 → 自动激活/停用</text>
+
+  <rect x="24" y="72" width="632" height="52" rx="8" fill="#f6f6f6" stroke="#ddd"/>
+  <text x="40" y="92" font-size="12" font-weight="700" fill="#333">组件 A 声明依赖 d = { llm, tools }</text>
+  <text x="40" y="110" font-size="12" fill="#555">Σ = 依赖键 → 值；σ ⊨ d 判定：d 里每个键都在注册表里 → 满足</text>
+
+  <text x="24" y="148" font-size="14" font-weight="700" fill="#1f7a22">激活路径（activating）</text>
+
+  <rect x="24" y="158" width="180" height="56" rx="8" fill="#e3f0ff" stroke="#4a7cf0"/>
+  <text x="40" y="180" font-size="12" font-weight="700" fill="#2f5fd0">provide('llm')</text>
+  <text x="40" y="198" font-size="11" fill="#555">注册 llm，缺 tools</text>
+
+  <rect x="252" y="158" width="180" height="56" rx="8" fill="#e3f0ff" stroke="#4a7cf0"/>
+  <text x="268" y="180" font-size="12" font-weight="700" fill="#2f5fd0">provide('tools')</text>
+  <text x="268" y="198" font-size="11" fill="#555">注册 tools，依赖齐了</text>
+
+  <path d="M 204 186 L 244 186" stroke="#888" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <rect x="480" y="158" width="176" height="56" rx="8" fill="#eaffea" stroke="#38a83c" stroke-width="2"/>
+  <text x="496" y="180" font-size="12" font-weight="700" fill="#1f7a22">notify → A 激活</text>
+  <text x="496" y="198" font-size="11" fill="#555">依赖齐 → ACTIVE</text>
+
+  <path d="M 432 186 L 472 186" stroke="#888" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <text x="24" y="246" font-size="14" font-weight="700" fill="#b02a2a">停用路径（deactivating）</text>
+
+  <rect x="24" y="256" width="180" height="56" rx="8" fill="#ffe9e9" stroke="#d04a4a"/>
+  <text x="40" y="278" font-size="12" font-weight="700" fill="#b02a2a">撤销 tools</text>
+  <text x="40" y="296" font-size="11" fill="#555">反注册（disposer）</text>
+
+  <rect x="252" y="256" width="180" height="56" rx="8" fill="#fff7e6" stroke="#e0a030"/>
+  <text x="268" y="278" font-size="12" font-weight="700" fill="#b07900">notify(['tools'])</text>
+  <text x="268" y="296" font-size="11" fill="#555">遍历依赖者重新检查</text>
+
+  <rect x="480" y="256" width="176" height="56" rx="8" fill="#ffe9e9" stroke="#d04a4a" stroke-width="2"/>
+  <text x="496" y="278" font-size="12" font-weight="700" fill="#b02a2a">A 停用</text>
+  <text x="496" y="296" font-size="11" fill="#555">依赖缺 → inactive</text>
+
+  <path d="M 204 284 L 244 284" stroke="#888" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <path d="M 432 284 L 472 284" stroke="#888" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <rect x="24" y="340" width="632" height="72" rx="10" fill="#f6f6f6" stroke="#ddd"/>
+  <text x="40" y="364" font-size="13" font-weight="700" fill="#333">notify 三分类（状态迁移）</text>
+  <text x="40" y="384" font-size="12" fill="#555">activating：σ 不满足 d → σ' 满足（依赖刚齐）</text>
+  <text x="40" y="402" font-size="12" fill="#555">deactivating：σ 满足 d → σ' 不满足（依赖刚缺）· neutral：其他情况</text>
+
+  <rect x="24" y="432" width="632" height="84" rx="10" fill="#fff7e6" stroke="#e0a030" stroke-width="1.5"/>
+  <text x="40" y="456" font-size="13" font-weight="700" fill="#b07900">关键：set(k,v) 本身也是可逆效应（𝔈*Σ）</text>
+  <text x="40" y="478" font-size="12" fill="#555">"共效应操作就是效应，效应可逆" → 依赖注册天然可追踪、可回滚</text>
+  <text x="40" y="498" font-size="12" fill="#555">这把时间维度（可逆效应）和空间维度（共效应）焊在一起</text>
+</svg>

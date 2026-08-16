@@ -1,0 +1,39 @@
+<svg viewBox="0 0 680 560" width="100%" xmlns="http://www.w3.org/2000/svg">
+<title>可逆效应边界：从理论到落地总览</title>
+<desc>从"可逆性有边界"的问题出发，理论上界内可逆界外不可逆、获取可逆发射不可逆、扣留与补偿两招兜底；落地为沙箱三档、审批扣留、升级移动边界。</desc>
+<defs>
+<marker id="arrowov" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+<text x="40" y="40" font-family="system-ui, sans-serif" font-size="15" font-weight="500" fill="#2C2C2A">可逆效应边界：从理论到落地</text>
+<g>
+<rect x="60" y="56" width="560" height="56" rx="10" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="340" y="78" font-family="system-ui, sans-serif" font-size="13" font-weight="500" fill="#2C2C2A" text-anchor="middle" dominant-baseline="central">问题：ctx.effect 能撤销一切吗？→ 不能</text>
+<text x="340" y="98" font-family="system-ui, sans-serif" font-size="11" fill="#5F5E5A" text-anchor="middle" dominant-baseline="233" dominant-baseline="central">删文件 / 发邮件 / 转账，做了就回不来 → 可逆性有边界</text>
+</g>
+<path d="M340 112 L340 132" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowov)"/>
+<g>
+<rect x="60" y="134" width="560" height="150" rx="12" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="76" y="154" font-family="system-ui, sans-serif" font-size="13" font-weight="500" fill="#0C447C" dominant-baseline="central">理论：边界二分 + 获取/发射</text>
+<text x="76" y="178" font-family="system-ui, sans-serif" font-size="12" fill="#185FA5" dominant-baseline="central">界内：独占修改 + 可恢复 → 可回滚（内存 / 私有文件 / 注册）</text>
+<text x="76" y="198" font-family="system-ui, sans-serif" font-size="12" fill="#A32D2D" dominant-baseline="central">界外：做不到 → idΓ 不可回滚（写文件 / 发请求 / 转账）</text>
+<text x="76" y="222" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#0C447C" dominant-baseline="central">获取（可逆）：open↔close · malloc↔free · fork↔kill</text>
+<text x="76" y="242" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#A32D2D" dominant-baseline="central">发射（不可逆）：write · send —— 数据出去就回不来</text>
+<text x="76" y="266" font-family="system-ui, sans-serif" font-size="12" fill="#185FA5" dominant-baseline="central">兜底两招：扣留 withhold（推迟发射）· 补偿 compensation（事后补救）</text>
+</g>
+<path d="M340 284 L340 304" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowov)"/>
+<g>
+<rect x="60" y="306" width="560" height="130" rx="12" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="76" y="326" font-family="system-ui, sans-serif" font-size="13" font-weight="500" fill="#085041" dominant-baseline="central">落地：沙箱三档 + 审批 + 升级</text>
+<text x="76" y="350" font-family="system-ui, sans-serif" font-size="12" fill="#0F6E56" dominant-baseline="central">沙箱画边界：read-only（最窄）→ workspace-write → danger-full-access（最宽）</text>
+<text x="76" y="370" font-family="system-ui, sans-serif" font-size="12" fill="#0F6E56" dominant-baseline="central">审批 = 扣留：ask（问用户，批了才发射，fail closed）/ never（直接拒）</text>
+<text x="76" y="390" font-family="system-ui, sans-serif" font-size="12" fill="#0F6E56" dominant-baseline="central">升级 = 移动边界：escalation + justification（理由）+ 审批</text>
+<text x="76" y="414" font-family="system-ui, sans-serif" font-size="12" fill="#085041" dominant-baseline="central">原则：边界内给足保证，边界外诚实兜底（不假装能回滚）</text>
+</g>
+<g>
+<rect x="140" y="456" width="400" height="64" rx="10" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+<text x="340" y="480" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#854F0B" text-anchor="middle" dominant-baseline="central">例子：agent 想删文件</text>
+<text x="340" y="500" font-family="system-ui, sans-serif" font-size="11" fill="#854F0B" text-anchor="middle" dominant-baseline="central">read-only 挡住 → 请求升级+理由 → 审批扣留 → 批准才删</text>
+</g>
+</svg>

@@ -1,0 +1,33 @@
+<svg viewBox="0 0 680 408" width="100%" xmlns="http://www.w3.org/2000/svg">
+<title>subagent 委托：六层保障</title>
+<desc>父 agent 通过 tool-subagent 委托，经过能力校验、深度限制、工具过滤、权限策略、取消传播、进程隔离六层保障，产生工具收窄、人设定制的子 agent。</desc>
+<defs>
+<marker id="arrowg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+<text x="40" y="40" font-family="system-ui, sans-serif" font-size="15" font-weight="500" fill="#2C2C2A">subagent 委托：六层保障（父 → 子）</text>
+<g>
+<rect x="220" y="56" width="240" height="52" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="340" y="76" font-family="system-ui, sans-serif" font-size="13" font-weight="500" fill="#0C447C" text-anchor="middle" dominant-baseline="central">父 agent（depth = N）</text>
+<text x="340" y="94" font-family="system-ui, sans-serif" font-size="12" fill="#185FA5" text-anchor="middle" dominant-baseline="central">全量工具集（如 20 个）</text>
+</g>
+<path d="M340 108 L340 130" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowg)"/>
+<text x="356" y="122" font-family="system-ui, sans-serif" font-size="11" fill="#5F5E5A">调用 tool-subagent 委托</text>
+<g>
+<rect x="60" y="132" width="560" height="180" rx="12" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="76" y="150" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#2C2C2A" dominant-baseline="central">六层保障（委托必经的闸门）</text>
+<g><rect x="76" y="160" width="176" height="52" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/><text x="164" y="180" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#085041" text-anchor="middle">能力校验</text><text x="164" y="198" font-family="system-ui, sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle">assertCapabilities</text></g>
+<g><rect x="268" y="160" width="176" height="52" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/><text x="356" y="180" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#085041" text-anchor="middle">深度限制</text><text x="356" y="198" font-family="system-ui, sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle">depthLimit（+1 超限拒）</text></g>
+<g><rect x="460" y="160" width="176" height="52" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/><text x="548" y="180" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#085041" text-anchor="middle">工具过滤</text><text x="548" y="198" font-family="system-ui, sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle">toolFilter（allow/deny）</text></g>
+<g><rect x="76" y="224" width="176" height="52" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/><text x="164" y="244" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#085041" text-anchor="middle">权限策略</text><text x="164" y="262" font-family="system-ui, sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle">permission（子请求自动拒）</text></g>
+<g><rect x="268" y="224" width="176" height="52" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/><text x="356" y="244" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#085041" text-anchor="middle">取消传播</text><text x="356" y="262" font-family="system-ui, sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle">signal / abort → CANCELLED</text></g>
+<g><rect x="460" y="224" width="176" height="52" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/><text x="548" y="244" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#085041" text-anchor="middle">进程隔离</text><text x="548" y="262" font-family="system-ui, sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle">spawn / acp 出进程</text></g>
+</g>
+<path d="M340 312 L340 334" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowg)"/>
+<g>
+<rect x="220" y="336" width="240" height="52" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="340" y="356" font-family="system-ui, sans-serif" font-size="13" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">子 agent（depth = N+1）</text>
+<text x="340" y="374" font-family="system-ui, sans-serif" font-size="12" fill="#0F6E56" text-anchor="middle" dominant-baseline="central">收窄工具集 + 定制 persona</text>
+</g>
+</svg>

@@ -1,0 +1,52 @@
+<svg viewBox="0 0 680 540" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#8b8b8b"/>
+    </marker>
+  </defs>
+
+  <text x="24" y="34" font-size="20" font-weight="700" fill="#1a1a1a">Service Multiplexing（服务多路复用）= service broker</text>
+  <text x="24" y="56" font-size="13" fill="#666">一个 service 背后不是"一个实现"，而是"broker + 一堆 provider"</text>
+
+  <rect x="24" y="80" width="200" height="64" rx="10" fill="#e3f0ff" stroke="#4a7cf0" stroke-width="2"/>
+  <text x="124" y="106" font-size="13" font-weight="700" fill="#2f5fd0" text-anchor="middle">Consumer（消费者）</text>
+  <text x="124" y="126" font-size="11" fill="#555" text-anchor="middle">只向 broker 要服务</text>
+
+  <path d="M 224 112 L 284 112" stroke="#888" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <rect x="290" y="80" width="180" height="64" rx="10" fill="#38a83c" stroke="#1f7a22" stroke-width="2"/>
+  <text x="380" y="106" font-size="13" font-weight="700" fill="#1f7a22" text-anchor="middle">Broker（路由）</text>
+  <text x="380" y="126" font-size="11" fill="#555" text-anchor="middle">按策略选 provider</text>
+
+  <path d="M 380 144 L 320 186" stroke="#888" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <path d="M 380 144 L 380 186" stroke="#888" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <path d="M 380 144 L 440 186" stroke="#888" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+
+  <rect x="220" y="190" width="100" height="52" rx="8" fill="#fff7e6" stroke="#e0a030"/>
+  <text x="270" y="212" font-size="11" font-weight="700" fill="#b07900" text-anchor="middle">Provider A</text>
+  <text x="270" y="228" font-size="10" fill="#555" text-anchor="middle">可逆注册</text>
+
+  <rect x="330" y="190" width="100" height="52" rx="8" fill="#fff7e6" stroke="#e0a030"/>
+  <text x="380" y="212" font-size="11" font-weight="700" fill="#b07900" text-anchor="middle">Provider B</text>
+  <text x="380" y="228" font-size="10" fill="#555" text-anchor="middle">可逆注册</text>
+
+  <rect x="440" y="190" width="100" height="52" rx="8" fill="#ffe9e9" stroke="#d04a4a"/>
+  <text x="490" y="212" font-size="11" font-weight="700" fill="#b02a2a" text-anchor="middle">Provider C(新)</text>
+  <text x="490" y="228" font-size="10" fill="#555" text-anchor="middle">滚动更新加入</text>
+
+  <rect x="24" y="270" width="632" height="240" rx="10" fill="#f6f6f6" stroke="#ddd"/>
+  <text x="40" y="294" font-size="13" font-weight="700" fill="#333">三个应用（论文 §6.2）</text>
+
+  <text x="40" y="320" font-size="12" font-weight="700" fill="#2f5fd0">① 负载均衡</text>
+  <text x="40" y="340" font-size="11" fill="#555">broker 按轮询/权重选 provider；provider 可增删扩缩容，卸载自动移出路由集</text>
+
+  <text x="40" y="368" font-size="12" font-weight="700" fill="#1f7a22">② 滚动更新</text>
+  <text x="40" y="388" font-size="11" fill="#555">新 provider 加载注册 → ACTIVE → 流量逐步转移（调权重）→ 旧的清空 in-flight 后卸载</text>
+  <text x="40" y="406" font-size="11" fill="#777">把"蓝绿部署"这种基础设施操作，降级成"应用级组合模式"</text>
+
+  <text x="40" y="434" font-size="12" font-weight="700" fill="#b07900">③ 跨进程调用</text>
+  <text x="40" y="454" font-size="11" fill="#555">每个进程有各自 context + 本地 provider，协调组件链接它们，RPC 保持接口</text>
+  <text x="40" y="472" font-size="11" fill="#555">对 consumer 透明：分不清本地还是远程</text>
+
+  <text x="40" y="508" font-size="12" fill="#666">这是"能力接缝"的终极形态：从"换 provider"到"多 provider + broker 路由"</text>
+</svg>

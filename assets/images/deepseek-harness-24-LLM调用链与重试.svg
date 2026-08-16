@@ -1,0 +1,47 @@
+<svg viewBox="0 0 680 560" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#8b8b8b"/>
+    </marker>
+  </defs>
+
+  <text x="24" y="34" font-size="20" font-weight="700" fill="#1a1a1a">LLM 调用链：stream → waterfall → adapter → 重试</text>
+  <text x="24" y="56" font-size="13" fill="#666">连"调哪个模型、失败怎么重试"都是可插拔的</text>
+
+  <rect x="24" y="80" width="632" height="52" rx="10" fill="#e3f0ff" stroke="#4a7cf0" stroke-width="1.5"/>
+  <text x="40" y="102" font-size="13" font-weight="700" fill="#2f5fd0">agent-loop 调 ctx.llm.stream(options)</text>
+  <text x="40" y="120" font-size="11" fill="#555">Consumer：消费 LLM 能力</text>
+
+  <path d="M 340 132 L 340 152" stroke="#888" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <rect x="24" y="156" width="632" height="72" rx="10" fill="#eaffea" stroke="#38a83c" stroke-width="1.5"/>
+  <text x="40" y="178" font-size="13" font-weight="700" fill="#1f7a22">llm/stream waterfall（中间件）</text>
+  <text x="40" y="198" font-size="11" fill="#555">插件可：改写 options / 短路（mock）/ 包装 chunk 流</text>
+  <text x="40" y="216" font-size="11" fill="#555">retry、replay、routing 都挂在这里，不写死在核心</text>
+
+  <path d="M 340 228 L 340 248" stroke="#888" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <rect x="24" y="252" width="300" height="72" rx="10" fill="#fff7e6" stroke="#e0a030" stroke-width="1.5"/>
+  <text x="40" y="274" font-size="13" font-weight="700" fill="#b07900">LlmAdapter.stream（Provider）</text>
+  <text x="40" y="294" font-size="11" fill="#555">llm-deepseek / llm-pi-ai</text>
+  <text x="40" y="312" font-size="11" fill="#555">真正对接厂商，换 provider 换模型</text>
+
+  <rect x="356" y="252" width="300" height="72" rx="10" fill="#f6f6f6" stroke="#ddd"/>
+  <text x="372" y="274" font-size="13" font-weight="700" fill="#333">错误 → finish chunk</text>
+  <text x="372" y="294" font-size="11" fill="#555">adapter 抛错不直接抛，包装成</text>
+  <text x="372" y="312" font-size="11" fill="#555">finish chunk（error / aborted）统一协议</text>
+
+  <path d="M 174 324 L 174 356" stroke="#888" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <rect x="24" y="360" width="300" height="52" rx="10" fill="#ffe9e9" stroke="#d04a4a" stroke-width="1.5"/>
+  <text x="40" y="382" font-size="13" font-weight="700" fill="#b02a2a">请求失败 → agent/request-error</text>
+  <text x="40" y="400" font-size="11" fill="#555">又一个 waterfall 扩展点</text>
+
+  <path d="M 174 412 L 174 444" stroke="#888" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <rect x="24" y="448" width="632" height="88" rx="10" fill="#fff7e6" stroke="#e0a030" stroke-width="2"/>
+  <text x="40" y="470" font-size="13" font-weight="700" fill="#b07900">llm-retry 插件（监听 agent/request-error）</text>
+  <text x="40" y="490" font-size="11" fill="#555">按 provider 的 retryPolicy：normal 只重试瞬时错误 / always 一直重试</text>
+  <text x="40" y="508" font-size="11" fill="#555">指数退避 + 抖动（500ms 初始、10s 上限）→ 记录 llm/retry 事件 → { kind: 'retry' }</text>
+  <text x="40" y="526" font-size="11" fill="#555">重试是独立插件，不写死在核心 —— 想换重试行为，写新插件即可</text>
+</svg>

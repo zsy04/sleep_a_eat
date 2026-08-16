@@ -1,0 +1,40 @@
+<svg viewBox="0 0 680 510" width="100%" xmlns="http://www.w3.org/2000/svg">
+<title>agent-loop 全景：输入 → 循环 → 日志</title>
+<desc>输入进 inbox 后唤醒循环；step 内 deriveMessages 从日志重建消息、调模型、并行执行工具；所有事件 append 回 session log（单一事实源）。</desc>
+<defs>
+<marker id="arrowp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+<text x="40" y="40" font-family="system-ui, sans-serif" font-size="15" font-weight="500" fill="#2C2C2A">agent-loop 全景：输入 → 循环 → 日志（单一事实源）</text>
+<g>
+<rect x="140" y="56" width="400" height="52" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="340" y="76" font-family="system-ui, sans-serif" font-size="13" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">inbox 收件箱</text>
+<text x="340" y="94" font-family="system-ui, sans-serif" font-size="11" fill="#0F6E56" text-anchor="middle" dominant-baseline="central">followup（唤醒）· steer（唤醒）· inject（不唤醒）· send</text>
+</g>
+<path d="M340 108 L340 130" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowp)"/>
+<g>
+<rect x="180" y="132" width="320" height="44" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="340" y="154" font-family="Consolas, monospace" font-size="12" font-weight="500" fill="#0C447C" text-anchor="middle" dominant-baseline="central">wakeDriver → kick()</text>
+</g>
+<path d="M340 176 L340 198" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowp)"/>
+<g>
+<rect x="180" y="200" width="320" height="44" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="340" y="222" font-family="Consolas, monospace" font-size="12" font-weight="500" fill="#0C447C" text-anchor="middle" dominant-baseline="central">turn() → preStep() → agent/pre-step 瀑布</text>
+</g>
+<path d="M340 244 L340 266" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrowp)"/>
+<g>
+<rect x="60" y="268" width="560" height="140" rx="12" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="76" y="286" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#2C2C2A" dominant-baseline="central">step() —— 一个步骤</text>
+<g><rect x="76" y="294" width="528" height="30" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/><text x="340" y="309" font-family="Consolas, monospace" font-size="11" fill="#085041" text-anchor="middle" dominant-baseline="central">buildRequest()：deriveMessages（日志 → 消息）+ systemPrompt 组装</text></g>
+<g><rect x="76" y="332" width="528" height="30" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/><text x="340" y="347" font-family="Consolas, monospace" font-size="11" fill="#085041" text-anchor="middle" dominant-baseline="central">llm.stream()：调模型 → assistant/chunk → assistant/message</text></g>
+<g><rect x="76" y="370" width="528" height="30" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/><text x="340" y="385" font-family="Consolas, monospace" font-size="11" fill="#085041" text-anchor="middle" dominant-baseline="central">executeToolCalls()：工具并行（有界滚动池）→ tool/result</text></g>
+</g>
+<path d="M340 408 L340 430" fill="none" stroke="#0F6E56" stroke-width="1.5" marker-start="url(#arrowp)" marker-end="url(#arrowp)"/>
+<text x="356" y="420" font-family="system-ui, sans-serif" font-size="11" fill="#0F6E56">写 append · 读 deriveMessages</text>
+<g>
+<rect x="60" y="434" width="560" height="56" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="340" y="456" font-family="system-ui, sans-serif" font-size="13" font-weight="500" fill="#0C447C" text-anchor="middle" dominant-baseline="central">session log（单一事实源）</text>
+<text x="340" y="474" font-family="system-ui, sans-serif" font-size="11" fill="#185FA5" text-anchor="middle" dominant-baseline="central">所有事件 append 落盘 · deriveMessages 从此重建消息 · 可 fork / resume / 回放</text>
+</g>
+</svg>

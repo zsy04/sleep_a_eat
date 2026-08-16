@@ -1,0 +1,328 @@
+/* ============================================================
+   睡与吃 · 小游戏板块
+   ============================================================ */
+
+/* ---------- 游戏列表页 ---------- */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.game-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  overflow: hidden;
+  min-height: 260px;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
+.game-preview {
+  width: 100%;
+  height: 130px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  display: block;
+  background: #0a1418;
+  image-rendering: pixelated;
+}
+
+.game-num {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-low);
+  letter-spacing: 2px;
+}
+
+.game-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-hi);
+  letter-spacing: 2px;
+}
+
+.game-desc {
+  font-size: 13.5px;
+  color: var(--text-mid);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.game-play {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 1px;
+  opacity: 0.8;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.game-card:hover .game-play { opacity: 1; transform: translateX(4px); }
+
+/* 各游戏主题色 */
+.g-snake { border-color: rgba(34, 211, 238, 0.35); }
+.g-snake:hover { border-color: var(--cyan); box-shadow: 0 16px 48px rgba(34, 211, 238, 0.14); }
+.g-snake .game-play { color: var(--cyan); }
+.g-snake .game-preview { background: #0a1418; }
+
+.g-runner { border-color: rgba(255, 45, 85, 0.35); }
+.g-runner:hover { border-color: var(--red); box-shadow: 0 16px 48px rgba(255, 45, 85, 0.14); }
+.g-runner .game-play { color: var(--red); }
+.g-runner .game-preview { background: #140a0e; }
+
+.g-2048 { border-color: rgba(245, 185, 66, 0.35); }
+.g-2048:hover { border-color: var(--gold); box-shadow: 0 16px 48px rgba(245, 185, 66, 0.14); }
+.g-2048 .game-play { color: var(--gold); }
+.g-2048 .game-preview { background: #141108; }
+
+/* ============================================================
+   游戏通用页面
+   ============================================================ */
+.game-page { padding-top: 64px; }
+
+.game-wrap {
+  max-width: none;
+  margin: 0 auto;
+  padding: 40px 24px 0;
+}
+
+.game-frame {
+  background: var(--bg-1);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 36px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  position: relative;
+  text-align: center;
+  /* 占页面宽度一半，左右各留 1/4 */
+  width: min(50vw, 860px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.game-frame::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--red), var(--cyan), var(--gold));
+}
+
+.game-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.game-score {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  color: var(--text-hi);
+  letter-spacing: 1px;
+}
+
+.game-score b {
+  color: var(--red);
+  font-size: 26px;
+  text-shadow: 0 0 16px var(--red-glow);
+}
+
+.game-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.game-controls button {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  color: var(--text-mid);
+  padding: 9px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.25s;
+  font-family: var(--font-sans);
+  letter-spacing: 1px;
+}
+
+.game-controls button:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.2);
+}
+
+.game-controls button.primary {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+  box-shadow: 0 0 20px var(--red-glow);
+}
+
+.game-controls button.primary:hover {
+  background: var(--red-dim);
+  color: #fff;
+}
+
+.game-arena {
+  background: var(--bg-0);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.game-tips {
+  font-size: 13px;
+  color: var(--text-low);
+  font-family: var(--font-mono);
+  letter-spacing: 1px;
+  margin-top: 8px;
+}
+
+.game-back {
+  margin-top: 26px;
+  text-align: center;
+}
+
+.game-over {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 8, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  z-index: 10;
+  border-radius: 12px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s, visibility 0.4s;
+}
+
+.game-over.show { opacity: 1; visibility: visible; }
+
+.game-over-title {
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--red);
+  letter-spacing: 6px;
+  font-family: var(--font-mono);
+  text-shadow: 0 0 30px var(--red-glow);
+}
+
+.game-over-score {
+  font-size: 16px;
+  color: var(--text-mid);
+  font-family: var(--font-mono);
+}
+
+.game-over-score b { color: var(--gold); font-size: 22px; }
+
+/* ---------- 贪吃蛇 ---------- */
+#snakeCanvas {
+  background: var(--bg-0);
+  border: 1px solid var(--border-cyan);
+  border-radius: 8px;
+  width: min(44vw, 72vh);
+  height: auto;
+  max-width: 100%;
+}
+
+/* ---------- 跑酷 ---------- */
+#runnerCanvas {
+  background: var(--bg-0);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+/* ---------- 2048 ---------- */
+#board2048 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: min(46vw, 820px);
+  max-width: 100%;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.tile {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  background: var(--bg-0);
+  color: var(--text-low);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: all 0.15s;
+}
+
+.tile[data-v="2"] { background: #1a2028; color: var(--text-mid); }
+.tile[data-v="4"] { background: #232c3a; color: var(--text-mid); }
+.tile[data-v="8"] { background: rgba(255, 45, 85, 0.35); color: #fff; }
+.tile[data-v="16"] { background: rgba(255, 45, 85, 0.55); color: #fff; }
+.tile[data-v="32"] { background: var(--red); color: #fff; box-shadow: 0 0 16px var(--red-glow); }
+.tile[data-v="64"] { background: var(--red-dim); color: #fff; box-shadow: 0 0 20px var(--red-glow); }
+.tile[data-v="128"] { background: rgba(245, 185, 66, 0.6); color: #141108; box-shadow: 0 0 16px rgba(245, 185, 66, 0.4); }
+.tile[data-v="256"] { background: var(--gold); color: #141108; box-shadow: 0 0 20px rgba(245, 185, 66, 0.5); }
+.tile[data-v="512"] { background: rgba(34, 211, 238, 0.6); color: #06141c; box-shadow: 0 0 16px rgba(34, 211, 238, 0.4); }
+.tile[data-v="1024"] { background: var(--cyan); color: #06141c; box-shadow: 0 0 20px rgba(34, 211, 238, 0.5); }
+.tile[data-v="2048"] { background: linear-gradient(135deg, var(--red), var(--gold)); color: #fff; box-shadow: 0 0 28px var(--red-glow); }
+
+/* 亮色主题：游戏画面保持暗色"屏幕"感，外框微调 */
+[data-theme="light"] .game-frame {
+  box-shadow: 0 20px 60px rgba(28, 30, 38, 0.12);
+}
+
+[data-theme="light"] .game-over {
+  background: rgba(244, 242, 236, 0.88);
+}
+
+[data-theme="light"] .game-over-title { color: var(--red); }
+
+@media (max-width: 768px) {
+  .game-frame { padding: 20px 14px; width: 94vw; }
+  .tile { font-size: 20px; }
+  #board2048 { width: 88vw; }
+  #snakeCanvas { width: 88vw; }
+  #runnerCanvas { width: 100%; }
+}

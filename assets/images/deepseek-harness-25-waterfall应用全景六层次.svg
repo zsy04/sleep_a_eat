@@ -1,0 +1,42 @@
+<svg viewBox="0 0 680 720" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <text x="24" y="34" font-size="20" font-weight="700" fill="#1a1a1a">waterfall 应用全景：dsh 里所有"可拦截"的地方</text>
+  <text x="24" y="56" font-size="13" fill="#666">waterfall = 中间件，凡是"让插件改写 / 否决 / 放行"的环节都用它</text>
+
+  <rect x="24" y="72" width="632" height="76" rx="10" fill="#f2f2f2" stroke="#999"/>
+  <text x="40" y="94" font-size="13" font-weight="700" fill="#555">① 框架层（cordis 内部）</text>
+  <text x="40" y="116" font-size="11" fill="#555">internal/config / update / get / set → 拦截框架内部操作（配置更新、服务读写）</text>
+  <text x="40" y="134" font-size="11" fill="#777">ctx.effect / ctx.get / ctx.set 这些"注册/读依赖"背后，都是它在把关</text>
+
+  <rect x="24" y="156" width="632" height="112" rx="10" fill="#eef4ff" stroke="#4a7cf0"/>
+  <text x="40" y="178" font-size="13" font-weight="700" fill="#2f5fd0">② 模型层（llm + agent）</text>
+  <text x="40" y="200" font-size="11" fill="#555">llm/stream → 拦截/改写/短路每次模型调用</text>
+  <text x="40" y="218" font-size="11" fill="#555">agent/pre-step → 改写/拒绝即将发给模型的消息</text>
+  <text x="40" y="236" font-size="11" fill="#555">agent/request → 组装 LLM 调用配置</text>
+  <text x="40" y="254" font-size="11" fill="#555">agent/request-error → 错误重试决策（llm-retry 挂在这）</text>
+
+  <rect x="24" y="276" width="632" height="112" rx="10" fill="#fff7e6" stroke="#e0a030"/>
+  <text x="40" y="298" font-size="13" font-weight="700" fill="#b07900">③ 工具层（tools + fs）</text>
+  <text x="40" y="320" font-size="11" fill="#555">tools/pre-execute → 工具前置拦截（权限 / 超时）</text>
+  <text x="40" y="338" font-size="11" fill="#555">tools/execute → 工具真正执行</text>
+  <text x="40" y="356" font-size="11" fill="#555">tools/post-execute → 工具后处理</text>
+  <text x="40" y="374" font-size="11" fill="#555">fs/write-intent / fs/edit-intent → 文件写入/编辑意图拦截</text>
+
+  <rect x="24" y="396" width="632" height="76" rx="10" fill="#eaffea" stroke="#38a83c"/>
+  <text x="40" y="418" font-size="13" font-weight="700" fill="#1f7a22">④ 组装层（system-prompt）</text>
+  <text x="40" y="440" font-size="11" fill="#555">system-prompt/assemble → 提示词 sections / tools / variables 增删改</text>
+  <text x="40" y="458" font-size="11" fill="#555">在提示词发出去前最后插一脚</text>
+
+  <rect x="24" y="480" width="632" height="76" rx="10" fill="#ffe9e9" stroke="#d04a4a"/>
+  <text x="40" y="502" font-size="13" font-weight="700" fill="#b02a2a">⑤ 安全层（approval）</text>
+  <text x="40" y="524" font-size="11" fill="#555">approval/request → 审批（answerer 链：谁先拍板谁终结）</text>
+  <text x="40" y="542" font-size="11" fill="#555">越界操作先扣住，批了才放行</text>
+
+  <rect x="24" y="564" width="632" height="76" rx="10" fill="#f3efff" stroke="#8a6cf0"/>
+  <text x="40" y="586" font-size="13" font-weight="700" fill="#5f3fd0">⑥ 观测层（telemetry）</text>
+  <text x="40" y="608" font-size="11" fill="#555">session-telemetry/record → 遥测记录改写（脱敏 / 过滤）</text>
+  <text x="40" y="626" font-size="11" fill="#555">记录发出去前可被插件改写</text>
+
+  <rect x="24" y="656" width="632" height="48" rx="10" fill="#f6f6f6" stroke="#4a7cf0" stroke-width="2"/>
+  <text x="40" y="678" font-size="12" font-weight="700" fill="#2f5fd0">统一规律：要不要给插件"干预机会"，决定用不用 waterfall</text>
+  <text x="40" y="696" font-size="11" fill="#555">纯通知用 emit/parallel；"谁先答谁终结"用 serial/bail；"层层拦截/改写/放行"用 waterfall</text>
+</svg>

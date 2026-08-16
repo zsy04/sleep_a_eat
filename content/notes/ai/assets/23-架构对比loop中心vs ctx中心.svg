@@ -1,0 +1,55 @@
+<svg viewBox="0 0 680 470" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <text x="24" y="34" font-size="20" font-weight="700" fill="#1a1a1a">两种架构分野：loop 中心 vs ctx 中心</text>
+  <text x="24" y="56" font-size="13" fill="#666">同样能扩展，但"谁是主干"完全不同</text>
+
+  <rect x="24" y="76" width="312" height="372" rx="12" fill="#fff5f5" stroke="#d04a4a" stroke-width="2"/>
+  <text x="40" y="104" font-size="15" font-weight="700" fill="#b02a2a">loop 中心（Claude Code / Codex）</text>
+
+  <rect x="60" y="122" width="240" height="88" rx="10" fill="#d04a4a"/>
+  <text x="180" y="158" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">agent loop（特权核心）</text>
+  <text x="180" y="180" font-size="11" fill="#ffe0e0" text-anchor="middle">硬编码主干，不可替换</text>
+
+  <rect x="60" y="228" width="110" height="40" rx="6" fill="#ffe9e9" stroke="#d04a4a"/>
+  <text x="115" y="252" font-size="11" fill="#b02a2a" text-anchor="middle">pre-tool-use hook</text>
+  <rect x="190" y="228" width="110" height="40" rx="6" fill="#ffe9e9" stroke="#d04a4a"/>
+  <text x="245" y="252" font-size="11" fill="#b02a2a" text-anchor="middle">post-tool-use hook</text>
+  <rect x="125" y="276" width="110" height="40" rx="6" fill="#ffe9e9" stroke="#d04a4a"/>
+  <text x="180" y="300" font-size="11" fill="#b02a2a" text-anchor="middle">stop hook</text>
+
+  <line x1="180" y1="210" x2="180" y2="228" stroke="#d04a4a" stroke-width="1.5"/>
+  <line x1="115" y1="210" x2="115" y2="228" stroke="#d04a4a" stroke-width="1.5"/>
+  <line x1="245" y1="210" x2="245" y2="228" stroke="#d04a4a" stroke-width="1.5"/>
+
+  <text x="40" y="344" font-size="12" fill="#b02a2a" font-weight="700">扩展方式：</text>
+  <text x="40" y="366" font-size="11" fill="#555">只能在预留 hook 点"打补丁"</text>
+  <text x="40" y="386" font-size="11" fill="#555">loop 本身是墙，改不了、换不掉</text>
+  <text x="40" y="416" font-size="11" fill="#555">运行时装卸受限，需重启</text>
+
+  <rect x="344" y="76" width="312" height="372" rx="12" fill="#eaf6ea" stroke="#38a83c" stroke-width="2"/>
+  <text x="360" y="104" font-size="15" font-weight="700" fill="#1f7a22">ctx 中心（dsh）</text>
+
+  <rect x="380" y="122" width="240" height="88" rx="10" fill="#38a83c"/>
+  <text x="500" y="158" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">ctx（唯一基座 / 总线）</text>
+  <text x="500" y="180" font-size="11" fill="#d0f0d0" text-anchor="middle">无特权核心，抽象总线</text>
+
+  <rect x="380" y="228" width="110" height="40" rx="6" fill="#eaffea" stroke="#38a83c"/>
+  <text x="435" y="252" font-size="11" fill="#1f7a22" text-anchor="middle">agent-loop 插件</text>
+  <rect x="510" y="228" width="110" height="40" rx="6" fill="#eaffea" stroke="#38a83c"/>
+  <text x="565" y="252" font-size="11" fill="#1f7a22" text-anchor="middle">tools 插件</text>
+  <rect x="380" y="276" width="110" height="40" rx="6" fill="#eaffea" stroke="#38a83c"/>
+  <text x="435" y="300" font-size="11" fill="#1f7a22" text-anchor="middle">llm 插件</text>
+  <rect x="510" y="276" width="110" height="40" rx="6" fill="#eaffea" stroke="#38a83c"/>
+  <text x="565" y="300" font-size="11" fill="#1f7a22" text-anchor="middle">session 插件</text>
+
+  <line x1="500" y1="210" x2="435" y2="228" stroke="#38a83c" stroke-width="1.5"/>
+  <line x1="500" y1="210" x2="565" y2="228" stroke="#38a83c" stroke-width="1.5"/>
+  <line x1="500" y1="210" x2="435" y2="276" stroke="#38a83c" stroke-width="1.5"/>
+  <line x1="500" y1="210" x2="565" y2="276" stroke="#38a83c" stroke-width="1.5"/>
+
+  <text x="360" y="344" font-size="12" fill="#1f7a22" font-weight="700">扩展方式：</text>
+  <text x="360" y="366" font-size="11" fill="#555">挂新插件，与其它插件平级</text>
+  <text x="360" y="386" font-size="11" fill="#555">agent-loop 本身也能整体替换</text>
+  <text x="360" y="416" font-size="11" fill="#555">热插拔，逆序回滚，天然支撑自进化</text>
+
+  <text x="24" y="462" font-size="12" fill="#666">没有谁更好：前者是"打磨好的产品"，后者是"可自由重构的基座"</text>
+</svg>

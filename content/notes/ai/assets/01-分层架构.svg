@@ -1,0 +1,27 @@
+<svg viewBox="0 0 680 416" width="100%" xmlns="http://www.w3.org/2000/svg">
+<title>DeepSeek Harness 分层架构</title>
+<desc>一个 dsh 进程是 Cordis 插件树，由 Profile/Bundle 组合层、核心插件包、能力接缝、事件系统四层构成。</desc>
+<text x="40" y="48" font-family="system-ui, sans-serif" font-size="15" font-weight="500" fill="#0C447C">DeepSeek Harness (dsh) 分层架构</text>
+<text x="40" y="70" font-family="system-ui, sans-serif" font-size="13" fill="#185FA5">一切皆插件 · 一个 dsh 进程 = 一棵 Cordis 插件树</text>
+<rect x="40" y="84" width="600" height="312" rx="20" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<g>
+<rect x="60" y="104" width="560" height="56" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="76" y="126" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="#085041">Profile &amp; Bundle 组合层</text>
+<text x="76" y="146" font-family="system-ui, sans-serif" font-size="12" fill="#0F6E56">dsh-base · dsh-web-app · dsh-headless，有序堆叠 + patch 可覆盖任意行</text>
+</g>
+<g>
+<rect x="60" y="176" width="560" height="56" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="76" y="198" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="#085041">核心插件包 packages/core</text>
+<text x="76" y="218" font-family="system-ui, sans-serif" font-size="12" fill="#0F6E56">session · system-prompt · tools · agent · agent-loop</text>
+</g>
+<g>
+<rect x="60" y="248" width="560" height="56" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="76" y="270" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="#085041">能力接缝 Capability Seam</text>
+<text x="76" y="290" font-family="system-ui, sans-serif" font-size="12" fill="#0F6E56">Service Definition → Provider → Consumer，换 provider 即换整个产品</text>
+</g>
+<g>
+<rect x="60" y="320" width="560" height="56" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="76" y="342" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="#085041">事件系统 Events</text>
+<text x="76" y="362" font-family="system-ui, sans-serif" font-size="12" fill="#0F6E56">session 事件（可持久） · agent/* 事件 · capability 事件</text>
+</g>
+</svg>

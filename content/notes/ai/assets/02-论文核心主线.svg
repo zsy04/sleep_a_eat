@@ -1,0 +1,44 @@
+<svg viewBox="0 0 680 468" width="100%" xmlns="http://www.w3.org/2000/svg">
+<title>Cordis 论文核心主线</title>
+<desc>论文提出两个正交维度：时序可组合性（可逆效应）与空间可组合性（响应式共效应），统一为单一 context 范式，落地为 Cordis 元框架。</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+<text x="40" y="46" font-family="system-ui, sans-serif" font-size="15" font-weight="500" fill="#2C2C2A">论文核心：两个正交维度 → 一个统一范式</text>
+<g>
+<rect x="40" y="66" width="290" height="168" rx="12" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="56" y="90" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="#0C447C">时序可组合性</text>
+<text x="56" y="110" font-family="system-ui, sans-serif" font-size="12" fill="#185FA5">Temporal composability</text>
+<text x="56" y="140" font-family="system-ui, sans-serif" font-size="13" font-weight="500" fill="#0C447C">可逆效应 Revertible effects</text>
+<text x="56" y="160" font-family="system-ui, sans-serif" font-size="12" fill="#185FA5">effect: Γ → Γ × (Γ → Γ)</text>
+<text x="56" y="180" font-family="system-ui, sans-serif" font-size="12" fill="#185FA5">每次变换都显式携带逆函数</text>
+<text x="56" y="198" font-family="system-ui, sans-serif" font-size="12" fill="#185FA5">track 追踪 · recover 恢复</text>
+<text x="56" y="216" font-family="system-ui, sans-serif" font-size="12" fill="#185FA5">卸载组件 = 应用累积的逆</text>
+</g>
+<g>
+<rect x="350" y="66" width="290" height="168" rx="12" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="366" y="90" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="#085041">空间可组合性</text>
+<text x="366" y="110" font-family="system-ui, sans-serif" font-size="12" fill="#0F6E56">Spatial composability</text>
+<text x="366" y="140" font-family="system-ui, sans-serif" font-size="13" font-weight="500" fill="#085041">响应式共效应 Reactive coeffects</text>
+<text x="366" y="160" font-family="system-ui, sans-serif" font-size="12" fill="#0F6E56">coeffect: 依赖键 → 值</text>
+<text x="366" y="180" font-family="system-ui, sans-serif" font-size="12" fill="#0F6E56">specification + notify</text>
+<text x="366" y="198" font-family="system-ui, sans-serif" font-size="12" fill="#0F6E56">activating / deactivating</text>
+<text x="366" y="216" font-family="system-ui, sans-serif" font-size="12" fill="#0F6E56">依赖变化驱动组件生命周期</text>
+</g>
+<path d="M185 234 L185 256" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M495 234 L495 256" fill="none" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+<g>
+<rect x="40" y="258" width="600" height="100" rx="12" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="56" y="284" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">统一 Context 范式 + 动态组合演算</text>
+<text x="56" y="306" font-family="system-ui, sans-serif" font-size="12" fill="#5F5E5A">effect context ∪ coeffect context = 单一 context type</text>
+<text x="56" y="326" font-family="system-ui, sans-serif" font-size="12" fill="#5F5E5A">元理论：preservation · temporal/spatial composability · progress · confluence</text>
+<text x="56" y="344" font-family="system-ui, sans-serif" font-size="12" fill="#5F5E5A">把组合性保证从单个组件提升到整个交织系统</text>
+</g>
+<g>
+<rect x="40" y="384" width="600" height="64" rx="12" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="56" y="408" font-family="system-ui, sans-serif" font-size="13" font-weight="500" fill="#2C2C2A">落地：Cordis 元框架（deepseek-harness 的理论底座）</text>
+<text x="56" y="428" font-family="system-ui, sans-serif" font-size="12" fill="#5F5E5A">ctx.effect 唯一原语 · 声明式加载器 + HMR · Koishi 4000+ 插件验证</text>
+</g>
+</svg>

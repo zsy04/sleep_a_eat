@@ -1,0 +1,34 @@
+<svg viewBox="0 0 680 520" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#8b8b8b"/>
+    </marker>
+  </defs>
+
+  <text x="24" y="34" font-size="20" font-weight="700" fill="#1a1a1a">waterfall 洋葱模型：next() 续延</text>
+  <text x="24" y="56" font-size="13" fill="#666">每个监听器一层套一层，请求从外往里钻，响应从里往外冒</text>
+
+  <rect x="80" y="90" width="520" height="330" rx="14" fill="#eef4ff" stroke="#4a7cf0" stroke-width="2"/>
+  <text x="96" y="120" font-size="14" font-weight="700" fill="#2f5fd0">L1 监听器：agent/pre-step（改写消息）</text>
+  <text x="96" y="140" font-size="12" fill="#555">payload.messages 前面加一条 system 提示 → return next()</text>
+
+  <rect x="130" y="160" width="420" height="230" rx="14" fill="#fff7e6" stroke="#e0a030" stroke-width="2"/>
+  <text x="146" y="190" font-size="14" font-weight="700" fill="#b07900">L2 监听器：危险检测（可能否决）</text>
+  <text x="146" y="210" font-size="12" fill="#555">if 危险 → return {reject}（不调 next，链条终止）</text>
+  <text x="146" y="228" font-size="12" fill="#555">else → return next()（放行）</text>
+
+  <rect x="180" y="250" width="320" height="120" rx="14" fill="#eaffea" stroke="#38a83c" stroke-width="2"/>
+  <text x="196" y="282" font-size="14" font-weight="700" fill="#1f7a22">inner：内置行为</text>
+  <text x="196" y="302" font-size="12" fill="#555">真正把消息发给模型（llm.stream）</text>
+  <text x="196" y="320" font-size="12" fill="#555">这是 cbs 空了之后落到的最终层</text>
+
+  <path d="M 60 255 L 172 255" stroke="#888" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="66" y="245" font-size="12" fill="#555">请求 ↓</text>
+
+  <path d="M 500 310 L 610 310" stroke="#888" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="508" y="300" font-size="12" fill="#555">响应 ↑</text>
+
+  <rect x="80" y="440" width="520" height="64" rx="10" fill="#f6f6f6" stroke="#ddd"/>
+  <text x="96" y="462" font-size="12" font-family="Consolas, monospace" fill="#333">const next = () =&gt; { const cb = cbs.shift() ?? inner; return cb(...args) }</text>
+  <text x="96" y="482" font-size="12" font-family="Consolas, monospace" fill="#333">每次 next()：弹出下一个监听器；列表空了 → 落到 inner（内置行为）</text>
+</svg>
