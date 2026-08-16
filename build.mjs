@@ -163,6 +163,7 @@ function scanDir(dir, type, category) {
         id,
         title: fm.title || id,
         date: fm.date || autoDate,
+        mtime: fileDate.getTime(),
         tags: fm.tags,
         summary,
         minutes: fm.minutes,
@@ -183,8 +184,11 @@ for (const [typeDir, type] of Object.entries(TYPE_MAP)) {
   if (existsSync(dir)) posts.push(...scanDir(dir, type, ""));
 }
 
-// 按日期倒序
-posts.sort((a, b) => (a.date < b.date ? 1 : -1));
+// 按日期倒序（近→远）；同日期时按文件修改时间倒序（最近导入的在前）
+posts.sort((a, b) => {
+  if (a.date !== b.date) return a.date < b.date ? 1 : -1;
+  return (b.mtime || 0) - (a.mtime || 0);
+});
 
 // 统计标签
 const tagCounts = {};
